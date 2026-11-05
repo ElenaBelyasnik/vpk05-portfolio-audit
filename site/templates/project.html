@@ -10,52 +10,37 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-  <header class="site-header">
-    <a class="logo" href="{{ url_for('index') }}">{{ profile.name }}</a>
-    <nav class="site-nav">
-      <a href="{{ url_for('index') }}">Главная</a>
-    </nav>
-  </header>
-
-  <main class="reveal">
-    <section class="project-page section">
-      <a class="back-link" href="{{ url_for('index') }}">&larr; Все проекты</a>
-
+<div class="site-header">
+  <a class="logo" href="{{ url_for('index') }}">{{ profile.name }}</a>
+  <nav class="site-nav">
+    <a href="{{ url_for('index') }}">Главная</a>
+  </nav>
+</div>
+<div class="project-detail">
+  <div class="project-detail-card">
+    <!-- Блок картинки -->
+    <div class="project-detail-image">
       {% if project.image_url %}
-        <figure class="project-image">
-          <img src="{{ project.image_url }}" alt="{{ project.title }}" loading="lazy">
-        </figure>
+      <img src="{{ project.image_url }}" alt="{{ project.title }}">
+      {% else %}
+      <div class="project-detail-placeholder">Нет фото</div>
       {% endif %}
-
-      <h1>{{ project.title }}</h1>
-
-      <div class="tech-stack">
-        {% for tech in project.tech %}
-          <span class="tech-tag">{{ tech }}</span>
+    </div>
+    <!-- Блок текста -->
+    <div class="project-detail-info">
+      <h1 class="project-detail-title">{{ project.title }}</h1>
+      <p class="project-detail-desc">{{ project.description }}</p>
+      <div class="project-detail-tech">
+        {% for t in project.tech %}
+        <span class="tech-tag">{{ t }}</span>
         {% endfor %}
       </div>
-
-      <div class="project-description">
-        <p>{{ project.description }}</p>
+      <div class="project-detail-links">
+        <a href="{{ project.github }}" target="_blank" class="btn-github">Открыть на GitHub</a>
+        <a href="{{ url_for('index') }}" class="back-link">← На главную</a>
       </div>
-
-      <div class="project-actions">
-        {% if project.github %}
-          <a class="button button-primary" href="{{ project.github }}" target="_blank" rel="noopener">
-            Открыть на GitHub
-          </a>
-        {% endif %}
-        {% set site_url = namespace(value='https://site.com') %}
-        <a class="button button-secondary"
-           href="{{ site_url.value }}/project/{{ project.id }}">
-          Посмотреть на сайте
-        </a>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <p>© {{ profile.name }} · <a href="#contacts">{{ contacts.telegram }}</a></p>
-  </footer>
+    </div>
+  </div>
+</div>
 </body>
 </html>

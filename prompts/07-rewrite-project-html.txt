@@ -1,0 +1,49 @@
+Никаких коммитов и пушей в Git без моего прямого указания. Просто создавай/изменяй файлы.
+Требую от тебя комментировать все шаги: перед созданием файла напиши, что именно ты собираешься сделать. После выполнения — кратко подтверди, что файл записан.
+Не трогай файлы, которые тебя не просили трогать.
+
+ЗАДАЧА:
+Страница `site/templates/project.html` по-прежнему пустая (белое поле). Мы полностью удаляем старое содержимое и пишем файл с нуля.
+
+1. ПОЛНОСТЬЮ ПЕРЕЗАПИШИ `site/templates/project.html`.
+   Убедись, что файл начинается с `<!DOCTYPE html>`, содержит `<head>` (с подключением `style.css`) и `<body>`.
+   
+   Внутри `<body>` должна быть следующая структура (обязательно используй именно эти классы и переменные Jinja):
+   
+   ```html
+   <div class="header">
+       <a href="/">Елена Белясник</a>
+       <a href="/">Главная</a>
+   </div>
+
+   <div class="project-detail">
+       <div class="project-detail-card">
+           
+           <!-- Блок картинки -->
+           <div class="project-detail-image">
+               {% if project.image_url %}
+                   <img src="{{ project.image_url }}" alt="{{ project.title }}">
+               {% else %}
+                   <div class="project-detail-placeholder">Нет фото</div>
+               {% endif %}
+           </div>
+
+           <!-- Блок текста -->
+           <div class="project-detail-info">
+               <h1 class="project-detail-title">{{ project.title }}</h1>
+               <p class="project-detail-desc">{{ project.description }}</p>
+               
+               <div class="project-detail-tech">
+                   {% for t in project.tech %}
+                       <span class="tech-tag">{{ t }}</span>
+                   {% endfor %}
+               </div>
+
+               <div class="project-detail-links">
+                   <a href="{{ project.github }}" target="_blank" class="btn-github">Открыть на GitHub</a>
+                   <a href="/" class="back-link">← На главную</a>
+               </div>
+           </div>
+
+       </div>
+   </div>

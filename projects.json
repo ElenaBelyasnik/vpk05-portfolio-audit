@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "title": "Lead Intake MVP",
+    "description": "Микросервис для сбора заявок с сайта и Telegram с валидацией, логированием и отправкой Email-уведомлений.",
+    "tech": ["Python", "FastAPI", "SQLite", "Pydantic", "Aiogram"],
+    "github": "https://github.com/ElenaBelyasnik/VPk01_lead_intake_mvp",
+    "image": "static/images/lead_intake.png"
+  },
+  {
+    "id": 2,
+    "title": "VK AI Bot",
+    "description": "Асинхронный бот для ВКонтакте с интеграцией LLM, многодиалоговым режимом и краткосрочной памятью.",
+    "tech": ["Python", "vkbottle", "OpenAI API", "ProxyAPI", "JSON"],
+    "github": "https://github.com/ElenaBelyasnik/vpf09-vk-ai-bot",
+    "image": "static/images/vk_ai_bot.png"
+  },
+  {
+    "id": 3,
+    "title": "Telegram Memory Bots",
+    "description": "Три Telegram-бота с разными типами памяти: короткая, длинная (RAG + ChromaDB) и комбинированная.",
+    "tech": ["Python", "Aiogram 3", "OpenAI API", "ChromaDB", "RAG"],
+    "github": "https://github.com/ElenaBelyasnik/vpf06-telegram-memory-bot",
+    "image": "static/images/memory_bots.png"
+  },
+  {
+    "id": 4,
+    "title": "Library MCP",
+    "description": "MCP-проект для управления каталогом книг, состоящий из MCP-сервера, CLI-клиента и Telegram-бота.",
+    "tech": ["Python", "FastAPI", "MCP", "SQLite", "Aiogram"],
+    "github": "https://github.com/ElenaBelyasnik/vpf08-library-mcp",
+    "image": "static/images/library_mcp.png"
+  },
+  {
+    "id": 5,
+    "title": "AI Report Generator",
+    "description": "Автоматическая генерация PDF-отчётов по транскрибации диалога с клиентом с использованием LLM и HTML-шаблонов.",
+    "tech": ["Python", "OpenAI API", "Jinja2", "WeasyPrint", "Telegram Bot"],
+    "github": "https://github.com/ElenaBelyasnik/vpf10-ai-report-generator",
+    "image": "static/images/report_generator.png"
+  },
+  {
+    "id": 6,
+    "title": "VPS Deployment (Docker)",
+    "description": "Демонстрация навыков контейнеризации и деплоя HTML-приложения на удаленный VPS через Docker и Coolify.",
+    "tech": ["Docker", "Nginx", "VPS", "Coolify", "HTML/JS"],
+    "github": "https://github.com/ElenaBelyasnik/Vpe03-VPS-Coolify-Docker",
+    "image": "static/images/docker_vps.png"
+  }
+]

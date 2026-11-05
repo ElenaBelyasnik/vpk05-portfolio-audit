@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="{{ profile.tagline }}">
+  <title>{{ profile.name }} — {{ profile.role }}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <header class="site-header">
+    <a class="logo" href="{{ url_for('index') }}">{{ profile.name }}</a>
+    <nav class="site-nav">
+      <a href="#skills">Навыки</a>
+      <a href="#projects">Проекты</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- About Me -->
+    <section class="hero reveal" id="about">
+      <p class="eyebrow">{{ profile.role }}</p>
+      <h1>{{ profile.name }}</h1>
+      <p class="lead">{{ profile.tagline }}</p>
+      <a class="button button-primary" href="#projects">Смотреть проекты</a>
+    </section>
+
+    <!-- Skills -->
+    <section class="section reveal" id="skills">
+      <h2>Skills</h2>
+      <ul class="skills">
+        {% for skill in skills %}
+          <li class="skill-chip">{{ skill }}</li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    <!-- Projects grid -->
+    <section class="section reveal" id="projects">
+      <h2>Projects</h2>
+      {% if projects %}
+        <div class="grid">
+          {% for project in projects %}
+            <article class="card">
+              <div class="card-media">
+                {% if project.image_url %}
+                  <img src="{{ project.image_url }}" alt="{{ project.title }}" loading="lazy">
+                {% else %}
+                  <div class="card-placeholder" aria-hidden="true">{{ project.title[:1] }}</div>
+                {% endif %}
+              </div>
+              <div class="card-body">
+                <h3>{{ project.title }}</h3>
+                <p>{{ project.description | first_line }}</p>
+                <a class="button button-secondary"
+                   href="{{ url_for('project_detail', project_id=project.id) }}">Подробнее</a>
+              </div>
+            </article>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p class="empty">Проекты ещё не добавлены в <code>projects.json</code>.</p>
+      {% endif %}
+    </section>
+
+    <!-- Contacts -->
+    <section class="section contacts reveal" id="contacts">
+      <h2>Let&rsquo;s work together</h2>
+      <p class="lead">Открыта к backend-проектам, ботам и LLM-интеграциям.</p>
+      <ul class="contact-links">
+        <li><a href="{{ contacts.telegram }}" target="_blank" rel="noopener">Telegram</a></li>
+        <li><a href="{{ contacts.email }}">Email</a></li>
+        <li><a href="{{ contacts.github }}" target="_blank" rel="noopener">GitHub</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© {{ profile.name }} · {{ profile.role }}</p>
+  </footer>
+
+  <script>
+    // Плавное появление секций при прокрутке (IntersectionObserver).
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      }),
+      { threshold: 0.12 }
+    );
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+  </script>
+</body>
+</html>

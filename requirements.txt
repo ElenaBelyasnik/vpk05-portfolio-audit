@@ -1,0 +1,11 @@
+# Зависимости проекта
+# Скрипт collect_readmes.py использует только стандартную библиотеку Python:
+# - shutil
+# - sys
+# - pathlib
+# - typing
+
+# Сайт-визитка (Flask) и Telegram-бот (aiogram 3.x)
+Flask>=3.0
+aiogram>=3.4
+python-dotenv>=1.0

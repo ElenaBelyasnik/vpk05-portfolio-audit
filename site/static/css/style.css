@@ -1,0 +1,372 @@
+/* ==========================================================================
+   Portfolio site — Apple-style styles
+   ========================================================================== */
+
+/* ---------- Reset & base ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Display",
+               "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: #1d1d1f;
+  background: #fbfbfd;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ---------- Layout helpers ---------- */
+.section {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 80px 24px;
+}
+
+/* ---------- Reveal animation ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- Header ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  background: rgba(251, 251, 253, 0.82);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.site-nav a {
+  margin-left: 24px;
+  font-size: 0.9rem;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.site-nav a:hover {
+  opacity: 1;
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  text-align: center;
+  padding-top: 140px;
+  padding-bottom: 80px;
+}
+
+.eyebrow {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #6e6e73;
+  margin-bottom: 8px;
+}
+
+.hero h1 {
+  font-size: clamp(2.4rem, 6vw, 4.5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+
+.lead {
+  font-size: clamp(1rem, 2.2vw, 1.3rem);
+  color: #6e6e73;
+  max-width: 680px;
+  margin: 0 auto 36px;
+}
+
+/* ---------- Buttons ---------- */
+.button {
+  display: inline-block;
+  padding: 12px 28px;
+  border-radius: 980px;
+  font-weight: 500;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s;
+}
+
+.button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.button-primary {
+  background: #0071e3;
+  color: #fff;
+}
+
+.button-primary:hover {
+  background: #0077ed;
+}
+
+.button-secondary {
+  background: #e8e8ed;
+  color: #1d1d1f;
+}
+
+.button-secondary:hover {
+  background: #d2d2d7;
+}
+
+/* ---------- Skills ---------- */
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  list-style: none;
+  margin-top: 32px;
+}
+
+.skill-chip {
+  background: #e8e8ed;
+  border-radius: 980px;
+  padding: 8px 20px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.skill-chip:hover {
+  background: #d2d2d7;
+}
+
+/* ---------- Section headings ---------- */
+.section h2 {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+/* ---------- Project grid ---------- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 28px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.10);
+}
+
+.card-media {
+  height: 200px;
+  overflow: hidden;
+}
+
+.card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.card:hover .card-media img {
+  transform: scale(1.04);
+}
+
+.card-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  font-weight: 700;
+  color: #86868b;
+  background: #f5f5f7;
+}
+
+.card-body {
+  padding: 24px;
+}
+
+.card-body h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.card-body p {
+  color: #6e6e73;
+  font-size: 0.95rem;
+  margin-bottom: 16px;
+}
+
+.empty {
+  text-align: center;
+  color: #86868b;
+}
+
+/* ---------- Contacts ---------- */
+.contacts {
+  text-align: center;
+}
+
+.contact-links {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  list-style: none;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+
+.contact-links a {
+  color: #0071e3;
+  font-weight: 500;
+  transition: opacity 0.2s;
+}
+
+.contact-links a:hover {
+  opacity: 0.7;
+}
+
+/* ---------- Project detail ---------- */
+.project-page {
+  max-width: 780px;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 32px;
+  color: #0071e3;
+  font-weight: 500;
+  transition: opacity 0.2s;
+}
+
+.back-link:hover {
+  opacity: 0.7;
+}
+
+.project-image {
+  margin-bottom: 40px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+
+.tech-tag {
+  background: #e8e8ed;
+  border-radius: 980px;
+  padding: 6px 14px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.project-description {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  margin-bottom: 32px;
+}
+
+.project-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  text-align: center;
+  padding: 40px 24px;
+  font-size: 0.85rem;
+  color: #86868b;
+}
+
+.site-footer a {
+  color: #0071e3;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 600px) {
+  .section {
+    padding: 56px 16px;
+  }
+
+  .hero {
+    padding-top: 100px;
+  }
+
+  .site-header {
+    padding: 12px 16px;
+  }
+
+  .site-nav a {
+    margin-left: 14px;
+    font-size: 0.82rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .project-actions {
+    flex-direction: column;
+  }
+
+  .project-actions .button {
+    text-align: center;
+  }
+}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ project.title }} — {{ profile.name }}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <header class="site-header">
+    <a class="logo" href="{{ url_for('index') }}">{{ profile.name }}</a>
+    <nav class="site-nav">
+      <a href="{{ url_for('index') }}">Главная</a>
+    </nav>
+  </header>
+
+  <main class="reveal">
+    <section class="project-page section">
+      <a class="back-link" href="{{ url_for('index') }}">&larr; Все проекты</a>
+
+      {% if project.image_url %}
+        <figure class="project-image">
+          <img src="{{ project.image_url }}" alt="{{ project.title }}" loading="lazy">
+        </figure>
+      {% endif %}
+
+      <h1>{{ project.title }}</h1>
+
+      <div class="tech-stack">
+        {% for tech in project.tech %}
+          <span class="tech-tag">{{ tech }}</span>
+        {% endfor %}
+      </div>
+
+      <div class="project-description">
+        <p>{{ project.description }}</p>
+      </div>
+
+      <div class="project-actions">
+        {% if project.github %}
+          <a class="button button-primary" href="{{ project.github }}" target="_blank" rel="noopener">
+            Открыть на GitHub
+          </a>
+        {% endif %}
+        {% set site_url = namespace(value='https://site.com') %}
+        <a class="button button-secondary"
+           href="{{ site_url.value }}/project/{{ project.id }}">
+          Посмотреть на сайте
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© {{ profile.name }} · <a href="#contacts">{{ contacts.telegram }}</a></p>
+  </footer>
+</body>
+</html>

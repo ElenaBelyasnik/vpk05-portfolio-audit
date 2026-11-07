@@ -47,3 +47,11 @@
 
        </div>
    </div>
+   
+2. ПРОВЕРЬ site/static/css/style.css:
+
+Убедись, что для классов .header, .project-detail, .project-detail-card, .project-detail-image, .project-detail-info, .project-detail-title, .project-detail-desc, .project-detail-tech, .tech-tag, .project-detail-links, .btn-github, .back-link есть стили.
+
+Если каких-то стилей нет — добавь их в конец файла.
+
+Сначала напиши план, затем перезапиши файл project.html и проверь style.css.

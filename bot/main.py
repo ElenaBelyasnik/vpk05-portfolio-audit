@@ -21,6 +21,7 @@ from dotenv import load_dotenv
 from aiogram import Bot, Dispatcher, F, Router
 from aiogram.types import (
     CallbackQuery,
+    FSInputFile,
     Message,
     WebAppInfo,
 )
@@ -35,7 +36,7 @@ PROJECTS_FILE: Final[Path] = ROOT_DIR / "projects.json"
 STATIC_IMAGES_DIR: Final[Path] = ROOT_DIR / "site" / "static" / "images"
 
 # Значение по умолчанию для SITE_URL (можно переопределить в .env).
-DEFAULT_SITE_URL: Final[str] = "https://site.com"
+DEFAULT_SITE_URL: Final[str] = "http://127.0.0.1:5000"
 
 # ---------------------------------------------------------------------------
 # Логирование
@@ -128,7 +129,7 @@ def _build_project_keyboard(proj: dict[str, Any]) -> list[list[Any]]:
 router: Router = Router()
 
 
-@router.message(Command("start", ignore_bot_command=True))
+@router.message(Command("start"))
 async def cmd_start(message: Message) -> None:
     """Команда /start: приветствие + список проектов."""
     try:
@@ -150,6 +151,8 @@ async def cmd_start(message: Message) -> None:
             text=f"📂 {proj['title']}",
             callback_data=f"project_{proj['id']}",
         )
+
+    builder.adjust(1)  # Каждая кнопка — отдельная строка
 
     await message.answer(
         "👋 Привет! Я — Бот-портфолио.\n\n"
@@ -186,7 +189,7 @@ async def cb_show_project(callback: CallbackQuery) -> None:
     # Отправляем изображение (если есть на диске).
     img = _image_path(project.get("image"))
     if img:
-        await callback.message.answer_photo(photo=str(img))
+        await callback.message.answer_photo(photo=FSInputFile(str(img)))
 
     # Текст + inline-кнопки.
     await callback.message.answer(

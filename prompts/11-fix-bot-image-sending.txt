@@ -1,0 +1,26 @@
+Никаких коммитов и пушей в Git без моего прямого указания. Просто создавай/изменяй файлы.
+Требую от тебя комментировать все шаги: перед созданием файла напиши, что именно ты собираешься сделать. После выполнения — кратко подтверди, что файл записан.
+Не трогай файлы, которые тебя не просили трогать.
+
+ЗАДАЧА:
+Бот падает с ошибкой `TelegramBadRequest: invalid file HTTP URL specified: Wrong port number specified in the URL` при попытке отправить картинку проекта. Это происходит потому, что бот пытается отправить локальный URL (например, `http://127.0.0.1:5000/...`), который Telegram не может скачать.
+
+Нужно исправить это в `bot/main.py`:
+1. Найди функцию `cb_show_project` (обработчик кнопки проекта).
+2. Сейчас там, скорее всего, используется `await callback.message.answer_photo(photo=str(img))`, где `img` — это URL.
+3. Замени отправку фото так, чтобы бот читал файл с диска и отправлял его как `BufferedInputFile` (или через `FSInputFile`).
+   - Используй `from aiogram.types import FSInputFile`.
+   - Путь к картинке должен быть абсолютным или относительно корня проекта (например, `site/static/images/имя_файла.png`).
+   - Если файла нет на диске — отправляй сообщение без картинки (только текст).
+
+Пример правильного кода:
+```python
+from aiogram.types import FSInputFile
+
+# ... внутри обработчика ...
+image_path = os.path.join("site", "static", "images", f"{project['id']}.png") # или как у тебя называется файл
+if os.path.exists(image_path):
+    photo = FSInputFile(image_path)
+    await callback.message.answer_photo(photo=photo, caption=text, reply_markup=kb)
+else:
+    await callback.message.answer(text=text, reply_markup=kb)

@@ -1,0 +1,37 @@
+Никаких коммитов и пушей в Git без моего прямого указания. Просто создавай/изменяй файлы.
+Требую от тебя комментировать все шаги: перед созданием файла напиши, что именно ты собираешься сделать. После выполнения — кратко подтверди, что файл записан.
+Не трогай файлы, которые тебя не просили трогать.
+
+ЗАДАЧА:
+Нам нужно вынести все контакты и ссылки из шаблонов в файл `.env`, чтобы их было легко менять без правки кода. Затем обновить шаблоны, чтобы они читали эти переменные.
+
+1. ОБНОВИ `.env` и `.env.example` (в корне проекта):
+   Добавь туда следующие переменные:
+   
+SITE_NAME=Елена Белясник
+SITE_TITLE=Backend Engineer & Vibe Coder
+CONTACT_EMAIL=elena.belyasnik@yandex.ru
+CONTACT_TELEGRAM=@Belyasnik_Elena
+CONTACT_TELEGRAM_URL=https://t.me/Belyasnik_Elena
+CONTACT_GITHUB_URL=https://github.com/ElenaBelyasnik
+CONTACT_GITHUB_NAME=ElenaBelyasnik
+BOT_LINK=https://t.me/BelyasnikPortfolioBot
+
+
+
+2. ОБНОВИ `site/app.py`:
+- Добавь загрузку переменных из `.env` (используй `python-dotenv`).
+- Передавай эти переменные в контекст шаблонов `render_template` (например, создай словарь `contacts` или передавай их напрямую).
+
+3. ОБНОВИ `site/templates/index.html`:
+- В блоке контактов замени захардкоженные заглушки (`hello@example.com`, `@your_username`, `your-github`) на переменные Jinja: `{{ contacts.email }}`, `{{ contacts.telegram }}` и т.д.
+- Убедись, что ссылки формируются правильно: `href="mailto:{{ contacts.email }}"`, `href="{{ contacts.telegram_url }}"`, `href="{{ contacts.github_url }}"`.
+- Добавь кнопку «Открыть Telegram-бота» со ссылкой `{{ bot_link }}`.
+
+4. ОБНОВИ `site/templates/project.html`:
+- Замени контакты в шапке/подвале на те же переменные (если они там есть).
+
+5. ОБНОВИ `bot/main.py`:
+- Убедись, что ссылка на сайт берется из `.env` (переменная `SITE_URL`, если её нет — добавь `SITE_URL=http://127.0.0.1:5000`).
+
+Сначала напиши план, затем внеси изменения во все перечисленные файлы.

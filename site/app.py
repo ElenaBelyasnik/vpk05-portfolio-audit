@@ -19,13 +19,16 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 from pathlib import Path
 from typing import Any
 
+from dotenv import load_dotenv
 from flask import Flask, abort, render_template
 
-# Корень репозитория: <root>/site/app.py -> parent.parent == <root>
+# Загружаем .env из корня проекта до чтения переменных.
 ROOT_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(ROOT_DIR / ".env")
 PROJECTS_FILE = ROOT_DIR / "projects.json"
 
 # Изображения в JSON хранятся как "static/images/x.png" относительно сайта,
@@ -34,18 +37,22 @@ STATIC_IMAGES_DIR = Path(__file__).resolve().parent / "static" / "images"
 
 # Статичные данные главной страницы (при необходимости отредактируйте здесь).
 PROFILE: dict[str, str] = {
-    "name": "Елена Белясник",
-    "role": "Backend Engineer & Vibe Coder",
+    "name": os.environ.get("SITE_NAME", "Елена Белясник"),
+    "role": os.environ.get("SITE_TITLE", "Backend Engineer & Vibe Coder"),
     "tagline": "Проектирую и разрабатываю асинхронные сервисы, ботов и LLM-интеграции.",
 }
 
 SKILLS: list[str] = ["Python", "FastAPI", "Docker", "Oracle"]
 
 CONTACTS: dict[str, str] = {
-    "telegram": "https://t.me/elenabelyasnik",
-    "email": "mailto:hello@example.com",
-    "github": "https://github.com/ElenaBelyasnik",
+    "telegram": os.environ.get("CONTACT_TELEGRAM_URL", "https://t.me/Belyasnik_Elena"),
+    "email": os.environ.get("CONTACT_EMAIL", "elena.belyasnik@yandex.ru"),
+    "github": os.environ.get("CONTACT_GITHUB_URL", "https://github.com/ElenaBelyasnik"),
+    "telegram_handle": os.environ.get("CONTACT_TELEGRAM", "@Belyasnik_Elena"),
+    "github_name": os.environ.get("CONTACT_GITHUB_NAME", "ElenaBelyasnik"),
 }
+
+BOT_LINK: str = os.environ.get("BOT_LINK", "https://t.me/BelyasnikPortfolioBot")
 
 logger = logging.getLogger(__name__)
 
@@ -138,6 +145,7 @@ def index() -> str:
         profile=PROFILE,
         skills=SKILLS,
         contacts=CONTACTS,
+        bot_link=BOT_LINK,
         projects=projects,
     )
 
@@ -153,6 +161,7 @@ def project_detail(project_id: int) -> str:
         "project.html",
         profile=PROFILE,
         contacts=CONTACTS,
+        bot_link=BOT_LINK,
         project=project,
     )
 
